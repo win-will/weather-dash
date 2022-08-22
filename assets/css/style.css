@@ -1,0 +1,73 @@
+ul {
+    list-style: none;
+    padding-left: 0;
+    margin-left: 3px;
+}
+li {
+    margin-top: 3px;
+}
+/* h1,h2,h3{
+    margin-left: 3px;
+} */
+
+h1,h2,h3,h4,h5{
+    font-weight: bold;
+
+}
+
+.jumbotron {
+    background-image: linear-gradient(to right, blue, darkblue);
+  }
+
+.btn{
+    margin-top: 5px;
+    width: 100%;
+}
+.form-group{
+    width:100%;
+}
+.cards{
+    display: flex;
+    width: 100%;
+    color: white;
+    
+}
+.dailyCard {
+    width: 30%;
+    height: 275px;
+    margin:4px;
+    background-color: rgb(56, 56, 85)
+}
+.searchHistory{
+    color: black;
+    background-color: darkgray;
+}
+
+#currentWeather {
+    border:1px;
+    border-color: black;
+    border-style: solid;
+    display: block;
+    margin-left:5px;
+}
+#fiveDay {
+    margin-left:5px;
+}
+#searchForm{
+    margin-left:2px;
+
+}
+#cityHistory{
+    border-top: 1px;
+    border-top-color: black;
+    border-top-style: solid;
+    margin-left:2px;
+    /* margin-left: 5px; */
+}
+/* .col-4{
+    margin-left: 5px;
+} */
+
+/* ​#column2{
+    margin-left: 5px;
+} */
