@@ -74,7 +74,7 @@ function getCurrentWeather(city) {
     
         } 
         else {
-            //alert('Error fetching current weather data: ' + response.statusText);
+            alert('Error fetching current weather data: ' + response.statusText);
             console.log('Error fetching current weather data: ' + response.statusText);
             
         }
@@ -111,7 +111,7 @@ function getForcast(city) {
 
         } 
         else {
-            // alert('Error fetching forecast data: ' + response.statusText);
+            alert('Error fetching forecast data: ' + response.statusText);
             console.log('Error fetching forecast data: ' + response.statusText);
           
         }
@@ -145,7 +145,7 @@ function getUVI(response,city) {
         }
         else {
 
-            //alert('Error fetching UVI: ' + response.statusText);
+            alert('Error fetching UVI: ' + response.statusText);
             console.log('Error fetching UVI: ' + response.statusText);
 
         }
