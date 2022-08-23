@@ -57,7 +57,7 @@ function getCurrentWeather(city) {
                 var d = new Date(0);
                 d.setUTCSeconds(data.dt);
 
-                currentEl.children[0].innerHTML = "<h2>" + city + " " + d.toLocaleDateString() + `<img src="http://openweathermap.org/img/wn/` + data.weather[0].icon +`@2x.png" alt="` + data.weather[0].description +`" height="50" width="50"></h2>`;
+                currentEl.children[0].innerHTML = "<h2>" + city + " (" + d.toLocaleDateString() + `) <img src="http://openweathermap.org/img/wn/` + data.weather[0].icon +`@2x.png" alt="` + data.weather[0].description +`" height="50" width="50"></h2>`;
                 currentEl.children[1].children[0].textContent = "Temp:  " + data.main.temp + "1\u00b0F";
                 currentEl.children[1].children[1].textContent = "Wind:  " + data.wind.speed + " MPH";
                 currentEl.children[1].children[2].textContent = "Humdity:  " + data.main.humidity + "%";

@@ -10,13 +10,15 @@ ul {
 li {
     margin-top: 3px;
     width: 100%;
+    letter-spacing:-1px !important;
 }
 
 h1,h2,h3,h4,h5{
     font-weight: bold;
+    letter-spacing:-1px !important;
 }
 section{
-    width: 100%;
+    width: 110%;
 }
 
 .jumbotron {
@@ -33,16 +35,20 @@ section{
 }
 .cards{
     display: flex;
+    /* flex-wrap: wrap; */
     width: 100%;
     color: white;
+    margin-left: -5px;
     
 }
 .dailyCard {
-    width: 30%;
+    width:20%;
     height: 225px;
-    margin:4px;
+    margin-left:5px;
     background-color: rgb(56, 56, 85);
-    padding: 3px;
+    padding: 4px;
+    /* border: 2px;
+    border-color: black; */
     /* font-size: 10pt; */
 }
 .searchHistory{
@@ -50,12 +56,18 @@ section{
     background-color: darkgray;
     width: 100%;
     float: left;
+    margin-top: 10px;
+    /* margin-left: 5px; */
+}
+
+#date1, #date2, #date3, #date4{
+    margin-left:20px;
 }
 
 .uvi{
     border-radius: 3px;
     width:40px;
-    line-height: 15px;
+    line-height: 20px;
     font-size: 12px;
     font-weight: bold;
 }
@@ -77,8 +89,11 @@ section{
     margin-top:10px;
     margin-left:4px;
 }
+#column1{
+    margin-left: 5px;
+}
 #searchForm{
-    margin-left:2px;
+    margin-left:5px;
 
 }
 #cityHistory{
@@ -87,6 +102,7 @@ section{
     border-top-style: solid;
     /* margin-left:2px; */
     /* float: left; */
+    /* margin-left: 5px; */
     /* margin-left: 5px; */
 }
 #cityHistory ul {
