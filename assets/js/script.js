@@ -98,7 +98,7 @@ function getForcast(city) {
                     
                     forecastEl = document.querySelector('#date' + i);
                     forecastEl.children[0].children[0].innerHTML = "<h5>" + d.toLocaleDateString() + "</h5>";
-                    forecastEl.children[0].children[1].innerHTML = `<img src="http://openweathermap.org/img/wn/` + data.list[dataIndex].weather[0].icon +`@2x.png" alt="` + data.list[dataIndex].weather[0].description +`" height="30" width="30">`;
+                    forecastEl.children[0].children[1].innerHTML = `<img src="http://openweathermap.org/img/wn/` + data.list[dataIndex].weather[0].icon +`@2x.png" alt="` + data.list[dataIndex].weather[0].description +`" height="50" width="50">`;
                     forecastEl.children[0].children[2].textContent = "Temp: " + data.list[dataIndex].main.temp + "1\u00b0F";;
                     forecastEl.children[0].children[3].textContent = "Wind: " + data.list[dataIndex].wind.speed + " MPH";
                     forecastEl.children[0].children[4].textContent = "Humidity: " + data.list[dataIndex].main.humidity + "%";
@@ -136,7 +136,7 @@ function getUVI(response,city) {
                 else {
                     console.log("Error: Color value not found defaulting to gray")
                 }
-                currentEl.children[1].children[3].innerHTML = `UV Index: <span class="` + uviColor + ` text-white uvi">` + data.value + `</span>`;
+                currentEl.children[1].children[3].innerHTML = `UV Index: <span class="` + uviColor + ` text-white uvi d-inline-flex justify-content-center">` + data.value + `</span>`;
                 getForcast(city);
                 
             });

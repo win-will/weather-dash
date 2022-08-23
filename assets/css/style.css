@@ -1,3 +1,7 @@
+* {
+    font-family: Helvetica;
+}
+
 ul {
     list-style: none;
     padding-left: 0;
@@ -10,6 +14,9 @@ li {
 
 h1,h2,h3,h4,h5{
     font-weight: bold;
+}
+section{
+    width: 100%;
 }
 
 .jumbotron {
@@ -32,9 +39,11 @@ h1,h2,h3,h4,h5{
 }
 .dailyCard {
     width: 30%;
-    height: 275px;
+    height: 225px;
     margin:4px;
-    background-color: rgb(56, 56, 85)
+    background-color: rgb(56, 56, 85);
+    padding: 3px;
+    /* font-size: 10pt; */
 }
 .searchHistory{
     color: black;
@@ -45,19 +54,28 @@ h1,h2,h3,h4,h5{
 
 .uvi{
     border-radius: 3px;
-    width:200%;
+    width:40px;
     line-height: 15px;
+    font-size: 12px;
+    font-weight: bold;
 }
 
+/* .weatherBox {
+    margin-left:5px !important;
+} */
 #currentWeather {
     border:1px;
     border-color: black;
     border-style: solid;
     display: block;
     margin-left:5px;
+    padding-left: 5px;
+    height: 225px;
+
 }
 #fiveDay {
-    margin-left:5px;
+    margin-top:10px;
+    margin-left:4px;
 }
 #searchForm{
     margin-left:2px;
