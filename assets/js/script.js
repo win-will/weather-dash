@@ -1,14 +1,33 @@
 var formEl = document.querySelector('#searchForm');
 var currentEl = document.querySelector('#currentWeather');
-var defaultCity = "Detroit";
+var searchHistoryEl = document.querySelector('#cityHistory');
+var addButtons = false;
 
-getWeatherData (defaultCity);
+//initialize array with any stored history
+var citiesArray = getHistory();
+console.log(formEl.children[1].placeholder);
 
+//Add buttons if there is a first launch, refresh, or relaunch of app
+if (citiesArray.length) {
+
+    // addHistoryButtons();
+    addButtons = true;
+    getCurrentWeather(citiesArray[citiesArray.length - 1]);
+    
+}
+else {
+
+    getCurrentWeather("Detroit");
+
+}
 
 
 formEl.addEventListener('submit', function (event) {
     event.preventDefault();
+
     var city = document.getElementById("citySearch").value;
+
+    //clean up input from search form
     city = city.trim();
     cityArray = city.split(" ");
     city = "";
@@ -17,28 +36,24 @@ formEl.addEventListener('submit', function (event) {
         cityArray[i] = titleCaseCity(cityArray[i]);
         city = city + cityArray[i] + " ";
     }
+    
     city = city.trim();
+    getCurrentWeather(city);
 
-    getWeatherData (city);
- });
+});
 
- function titleCaseCity(string) {
+function titleCaseCity(string) {
     string.toLowerCase();
     return string[0].toUpperCase() + string.slice(1);
 }
 
-function getWeatherData (city) {
+function getCurrentWeather(city) {
     var apiUrlcurrent = 'https://api.openweathermap.org/data/2.5/weather?q=' + city + '&appid=818ca6ea23a62a1b8411f6f523477977&units=imperial';
-    var apiUrlforecast = 'https://api.openweathermap.org/data/2.5/forecast?q=' + city + '&appid=818ca6ea23a62a1b8411f6f523477977&units=imperial';
-     // The 0 there is the key, which sets the date to the epoch
-    var currentData = null;
     
-
     fetch(apiUrlcurrent).then(function (response) {
         if (response.ok) {
             response.json().then(function (data) {
-                console.log(data);
-                // console.log(data.dt);
+       
                 var d = new Date(0);
                 d.setUTCSeconds(data.dt);
 
@@ -46,79 +61,153 @@ function getWeatherData (city) {
                 currentEl.children[1].children[0].textContent = "Temp:  " + data.main.temp + "1\u00b0F";
                 currentEl.children[1].children[1].textContent = "Wind:  " + data.wind.speed + " MPH";
                 currentEl.children[1].children[2].textContent = "Humdity:  " + data.main.humidity + "%";
+                getUVI(data,city);
 
-                var apiUrluvi = 'https://api.openweathermap.org/data/2.5/uvi?&lat=' + data.coord.lat + '&lon=' + data.coord.lon + '&appid=818ca6ea23a62a1b8411f6f523477977';
-                fetch(apiUrluvi).then(function (response) {
-                    if (response.ok) {
-                        response.json().then(function (data) {
-                            console.log(data);
-                            currentEl.children[1].children[3].textContent = "UV Index:  " + data.value;
-                        });
-                    }
-                    else {
-
-                        alert('Error fetching UVI: ' + response.statusText);
-                    }
-                });
+                if (addButtons) {
+                    updateSearchHistory(city);
+                    addButtons = false;
+                }
 
             });
-       
-
     
         } 
         else {
-            alert('Error fetching current weather data: ' + response.statusText);
+            //alert('Error fetching current weather data: ' + response.statusText);
+            console.log('Error fetching current weather data: ' + response.statusText);
+            
         }
     });
 
+}
+
+function getForcast(city) {
+    var apiUrlforecast = 'https://api.openweathermap.org/data/2.5/forecast?q=' + city + '&appid=818ca6ea23a62a1b8411f6f523477977&units=imperial';
+
     fetch(apiUrlforecast).then(function (response) {
+
         if (response.ok) {
             response.json().then(function (data) {
-                console.log(data);
-                var d = new Date(0);
+                
                 var forecastEl = null;
-                var dataIndex = 7;
-                // console.log(data.list[dataIndex]);
-                for (i=0;i < 5;i++ ){
-
-                    
+                var d = new Date(0)
+                var dataIndex  = 7;
+             
+                for (let i=0; i < 5;i++,dataIndex+=8,d = new Date(0)){
                     
                     d.setUTCSeconds(data.list[dataIndex].dt);
+                    
                     forecastEl = document.querySelector('#date' + i);
                     forecastEl.children[0].children[0].innerHTML = "<h5>" + d.toLocaleDateString() + "</h5>";
                     forecastEl.children[0].children[1].innerHTML = `<img src="http://openweathermap.org/img/wn/` + data.list[dataIndex].weather[0].icon +`@2x.png" alt="` + data.list[dataIndex].weather[0].description +`" height="30" width="30">`;
                     forecastEl.children[0].children[2].textContent = "Temp: " + data.list[dataIndex].main.temp + "1\u00b0F";;
                     forecastEl.children[0].children[3].textContent = "Wind: " + data.list[dataIndex].wind.speed + " MPH";
                     forecastEl.children[0].children[4].textContent = "Humidity: " + data.list[dataIndex].main.humidity + "%";
-                    dataIndex+=8;
-                    d = new Date(0);
-
+                               
                 }
-                
-
                 
             });
 
-
         } 
         else {
-          alert('Error fetching forecast data: ' + response.statusText);
+            // alert('Error fetching forecast data: ' + response.statusText);
+            console.log('Error fetching forecast data: ' + response.statusText);
+          
         }
-      });
-
-
-  };
-
-  function getForcastData (city) {
-    var apiUrl = 'https:\\api.openweathermap.org/data/2.5/forecast?q=' + city + '&appid=818ca6ea23a62a1b8411f6f523477977&units=imperial';
-  
-    fetch(apiUrl).then(function (response) {
-      if (response.ok) {
-        response.json().then(function (data) {
-            console.log(data);
-          });
-      } else {
-        alert('Error: ' + response.statusText);
-      }
     });
-  };
+
+}
+
+function getUVI(response,city) {
+    var apiUrluvi = 'https://api.openweathermap.org/data/2.5/uvi?&lat=' + response.coord.lat + '&lon=' + response.coord.lon + '&appid=818ca6ea23a62a1b8411f6f523477977';
+    
+    fetch(apiUrluvi).then(function (response) {
+        if (response.ok) {
+            response.json().then(function (data) {
+                var uviColor = "bg-secondary";
+                if (0 <= Number(data.value) < 1){
+                    uviColor = "bg-success";
+                }
+                else if (Number(data.value) < 3.6){
+                    uviColor = "bg-warning";
+                }
+                else if (3.6 <= Number(data.value)){
+                    uviColor = "bg-danger";
+                }
+                else {
+                    console.log("Error: Color value not found defaulting to gray")
+                }
+                currentEl.children[1].children[3].innerHTML = `UV Index: <span class="` + uviColor + ` text-white uvi">` + data.value + `</span>`;
+                getForcast(city);
+                
+            });
+        }
+        else {
+
+            //alert('Error fetching UVI: ' + response.statusText);
+            console.log('Error fetching UVI: ' + response.statusText);
+
+        }
+    }); 
+}
+
+function addHistoryButtons(){
+    
+    while (searchHistoryEl.children[0].hasChildNodes()) {
+        searchHistoryEl.children[0].removeChild(searchHistoryEl.children[0].firstChild);
+    }
+
+    for (let i = citiesArray.length - 1; i > -1; i--) {
+        var li = document.createElement("li");
+
+        li.innerHTML = `<button class="btn searchHistory">` + citiesArray[i] + `</button>`;
+        searchHistoryEl.children[0].appendChild(li);
+    }
+    
+    for (i=0;i < searchHistoryEl.children[0].childElementCount;i++){
+
+        searchHistoryEl.children[0].children[i].children[0].addEventListener("click", function (event){
+            event.preventDefault();
+            event.stopPropagation();
+
+            getCurrentWeather(this.textContent);
+            getForcast(this.textContent);
+        
+        });
+
+    }
+        
+}
+
+function updateSearchHistory(city){
+
+    if (!(citiesArray.includes(city))) {
+        if (citiesArray.length === 8){
+
+            citiesArray.shift();
+            citiesArray.push(city);
+        }
+        else {
+            citiesArray.push(city);
+        }
+
+        localStorage.setItem("searchHistory", JSON.stringify(citiesArray));
+    }
+
+    formEl.children[1].placeholder = city;
+
+    addHistoryButtons();
+}
+
+function getHistory() {
+    var emptyArray = [];
+    var searchHistory = JSON.parse(localStorage.getItem('searchHistory'));
+    
+    if (searchHistory === null) {
+        localStorage.setItem("searchHistory", JSON.stringify(emptyArray));
+        return emptyArray;
+    }
+    
+    return searchHistory;
+}
+
+

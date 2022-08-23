@@ -5,18 +5,16 @@ ul {
 }
 li {
     margin-top: 3px;
+    width: 100%;
 }
-/* h1,h2,h3{
-    margin-left: 3px;
-} */
 
 h1,h2,h3,h4,h5{
     font-weight: bold;
-
 }
 
 .jumbotron {
     background-image: linear-gradient(to right, blue, darkblue);
+    margin-bottom: 10px !important;
   }
 
 .btn{
@@ -41,6 +39,14 @@ h1,h2,h3,h4,h5{
 .searchHistory{
     color: black;
     background-color: darkgray;
+    width: 100%;
+    float: left;
+}
+
+.uvi{
+    border-radius: 3px;
+    width:200%;
+    line-height: 15px;
 }
 
 #currentWeather {
@@ -61,13 +67,20 @@ h1,h2,h3,h4,h5{
     border-top: 1px;
     border-top-color: black;
     border-top-style: solid;
-    margin-left:2px;
+    /* margin-left:2px; */
+    /* float: left; */
     /* margin-left: 5px; */
 }
-/* .col-4{
-    margin-left: 5px;
-} */
-
-/* ​#column2{
-    margin-left: 5px;
-} */
+#cityHistory ul {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    flex-grow: 1;
+    padding: 0; /* Use this */
+  }
+  
+#cityHistory ul li {
+      /* border: 1px solid red; */
+      width: 100%;
+      border-left: none; /* And this */
+  }
