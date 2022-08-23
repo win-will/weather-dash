@@ -27,8 +27,11 @@ WHEN I click on a city in the search history
 THEN I am again presented with current and future conditions for that city
 ```
 
+## Link to site
+https://win-will.github.io/weather-dash/
+
 ## Mock-Up
 
 The following image shows the web application's appearance and functionality:
 
-![Current weather conditions for different cities.](./assets/06-server-side-apis-homework-demo.png)
+![Current weather conditions for different cities.](./assets/images/06-server-side-apis-homework-demo.png)
