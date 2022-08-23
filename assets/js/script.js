@@ -26,7 +26,7 @@ formEl.addEventListener('submit', function (event) {
     event.preventDefault();
 
     var city = document.getElementById("citySearch").value;
-
+    addButtons = true;
     //clean up input from search form
     city = city.trim();
     cityArray = city.split(" ");
@@ -57,8 +57,10 @@ function getCurrentWeather(city) {
                 var d = new Date(0);
                 d.setUTCSeconds(data.dt);
 
+                console.log(data.main);
+
                 currentEl.children[0].innerHTML = "<h2>" + city + " (" + d.toLocaleDateString() + `) <img src="http://openweathermap.org/img/wn/` + data.weather[0].icon +`@2x.png" alt="` + data.weather[0].description +`" height="50" width="50"></h2>`;
-                currentEl.children[1].children[0].textContent = "Temp:  " + data.main.temp + "1\u00b0F";
+                currentEl.children[1].children[0].textContent = "Temp:  " + data.main.temp + "\u00b0F";
                 currentEl.children[1].children[1].textContent = "Wind:  " + data.wind.speed + " MPH";
                 currentEl.children[1].children[2].textContent = "Humdity:  " + data.main.humidity + "%";
                 getUVI(data,city);
@@ -99,7 +101,7 @@ function getForcast(city) {
                     forecastEl = document.querySelector('#date' + i);
                     forecastEl.children[0].children[0].innerHTML = "<h5>" + d.toLocaleDateString() + "</h5>";
                     forecastEl.children[0].children[1].innerHTML = `<img src="http://openweathermap.org/img/wn/` + data.list[dataIndex].weather[0].icon +`@2x.png" alt="` + data.list[dataIndex].weather[0].description +`" height="50" width="50">`;
-                    forecastEl.children[0].children[2].textContent = "Temp: " + data.list[dataIndex].main.temp + "1\u00b0F";;
+                    forecastEl.children[0].children[2].textContent = "Temp: " + data.list[dataIndex].main.temp + "\u00b0F";;
                     forecastEl.children[0].children[3].textContent = "Wind: " + data.list[dataIndex].wind.speed + " MPH";
                     forecastEl.children[0].children[4].textContent = "Humidity: " + data.list[dataIndex].main.humidity + "%";
                                
