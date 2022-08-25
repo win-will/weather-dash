@@ -2,6 +2,9 @@
     font-family: Helvetica;
 }
 
+body{
+    min-width: 700px;
+}
 ul {
     list-style: none;
     padding-left: 0;
@@ -80,6 +83,7 @@ section{
     border-color: black;
     border-style: solid;
     display: block;
+    
     margin-left:5px;
     padding-left: 5px;
     height: 225px;
@@ -107,7 +111,7 @@ section{
 }
 #cityHistory ul {
     display: flex;
-    flex-wrap: wrap;
+    flex-wrap: nowrap;
     flex-direction: column;
     flex-grow: 1;
     padding: 0; /* Use this */
